@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# Tripwire for checking change in files
+
+# type: select what to look for (in this case, for files `f`)
+# mtime: cycles of 24h (0 is 24h, 1 is 24-48h...)
+# find PATH -type f -mtime 0
+
+# find ~ -type f -mtime 0 2>/dev/null | tee tmp/find.out
+
+rootdir='/'
+exclude='container|cache|/.(bash_history|viminfo)|'
+include='^/(home|etc|dev|/usr/local/|/var/|/opt/|/boot/|/root/)'
+
+find "$rootdir" -type f -mtime 0 2>/dev/null | \
+       	grep -E "$include" | \
+	grep -E -v "$exclude"
+
