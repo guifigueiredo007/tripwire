@@ -9,8 +9,13 @@
 # find ~ -type f -mtime 0 2>/dev/null | tee tmp/find.out
 
 rootdir='/'
-exclude='container|cache|/.(bash_history|viminfo)|'
-include='^/(home|etc|dev|/usr/local/|/var/|/opt/|/boot/|/root/)'
+
+#exclude='container|cache|/.(bash_history|viminfo)|'
+#include='^/(home|etc|dev|/usr/local/|/var/|/opt/|/boot/|/root/)'
+
+exclude='container|cache|/(\.bash_history|\.viminfo)'
+include='^/(home|etc|dev|usr/local|var|opt|boot|root)'
+
 
 find "$rootdir" -type f -mtime 0 2>/dev/null | \
        	grep -E "$include" | \
